@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ENCODED COIN</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --glass: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.15);
+      --accent: #ff3b3b;
+      --text: #e6edf3;
+      --muted: #9fb0c1;
+      --ok: #33d17a;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+
+    body {
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background: radial-gradient(circle at center, #1a0000 0%, #06060a 80%);
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    .animated-grid {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image:
+        linear-gradient(rgba(255,0,0,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,0,0,0.07) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 0;
+      animation: moveGrid 30s linear infinite;
+    }
+
+    @keyframes moveGrid {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 100px 100px, 100px 100px; }
+    }
+
+    .app { position: relative; z-index: 1; margin-top: 60px; width: min(800px, 95%); display: flex; flex-direction: column; align-items: center; gap: 30px; }
+
+    .coin-bar { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; position: relative; }
+    .coin-address { background: var(--glass); backdrop-filter: blur(8px); padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border); font-size: 13px; color: var(--muted); position: relative; }
+
+    /* Toast confirmation above the bar */
+    .toast {
+      position: absolute;
+      top: -48px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,0,0,0.22);
+      border: 1px solid var(--accent);
+      padding: 6px 14px;
+      border-radius: 10px;
+      color: #ffd7d7;
+      font-size: 12px;
+      pointer-events: none;
+      opacity: 0;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.5));
+      animation: toastIn 900ms ease forwards;
+    }
+    @keyframes toastIn {
+      0% { opacity: 0; transform: translate(-50%, -10px); }
+      30% { opacity: 1; transform: translate(-50%, 0); }
+      70% { opacity: 1; transform: translate(-50%, 0); }
+      100% { opacity: 0; transform: translate(-50%, -10px); }
+    }
+
+    .btn { border: none; background: var(--glass); backdrop-filter: blur(10px); color: var(--text); padding: 10px 16px; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 14px; transition: transform .12s ease, background .2s ease; text-decoration: none; }
+    .btn:hover { background: rgba(255,0,0,0.15); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0) scale(0.98); }
+    .btn.primary { background: var(--accent); color: #fff; }
+    .btn.ok { background: rgba(0,255,150,0.2); color: var(--ok); }
+
+    .glass-block {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      width: 100%;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 25px rgba(255,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: 0.3s ease;
+    }
+
+    .glass-block:hover { box-shadow: 0 0 40px rgba(255,0,0,0.25); }
+
+    textarea {
+      width: 100%;
+      min-height: 160px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      resize: vertical;
+      outline: none;
+    }
+
+    .row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 10px 0;
+      z-index: 2;
+    }
+    footer span { color: var(--accent); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="animated-grid"></div>
+  <div class="app">
+    <div class="coin-bar" id="coinBar">
+      <div class="coin-address" id="coinAddress">pumpfuncoinaddress12345ABCDEF</div>
+      <button class="btn ok" id="copyAddress">Copy</button>
+      <a class="btn" href="https://x.com/pumpfun" target="_blank">X</a>
+      <a class="btn primary" href="https://pump.fun/coin/pumpfuncoinaddress12345ABCDEF" target="_blank">Buy</a>
+    </div>
+
+    <div class="glass-block">
+      <h2 style="text-align:center; color:var(--accent);">Base64 Encoder / Decoder</h2>
+      <textarea id="input" placeholder="Paste your text here..."></textarea>
+      <div class="row">
+        <button class="btn primary" id="btn-encode">Encode</button>
+        <button class="btn" id="btn-decode">Decode</button>
+        <button class="btn" id="btn-clear">Clear</button>
+      </div>
+      <textarea id="output" placeholder="Result will appear here" readonly></textarea>
+      <div class="row">
+        <button class="btn ok" id="btn-copy">Copy Output</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© <span>ENCODED COIN</span> — Secure. Simple. On‑chain Utility.</p>
+  </footer>
+
+  <script>
+    const byId = (id) => document.getElementById(id);
+    const $coinAddress = byId('coinAddress');
+    const $copyAddress = byId('copyAddress');
+    const $coinBar = byId('coinBar');
+
+    async function robustCopy(text) {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      } catch {}
+      // Fallback for older browsers / blocked clipboard API
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      $coinBar.appendChild(toast);
+      setTimeout(() => toast.remove(), 900);
+    }
+
+    $copyAddress.addEventListener('click', async () => {
+      const text = ($coinAddress.textContent || '').trim();
+      if (!text) { showToast('No address'); return; }
+      const ok = await robustCopy(text);
+      showToast(ok ? 'Address Copied!' : 'Copy blocked');
+    });
+  </script>
+</body>
+</html>
