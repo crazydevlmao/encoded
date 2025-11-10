@@ -294,7 +294,7 @@
       if (mode === 'encode'){
         $output.value = toBase64(val);
         if (shareXBtn){
-          const text = `${$output.value}\\n\\n$ENCODED`;
+          const text = `${$output.value}\n\n$ENCODED`;
           shareXBtn.style.display = 'inline-flex';
           shareXBtn.onclick = () => {
             const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
