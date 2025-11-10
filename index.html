@@ -110,5 +110,51 @@
   <footer>
     <p>© <span>ENCODED COIN</span> - Secure. Simple. On-chain Utility.</p>
   </footer>
+
+  <script>
+    const byId = (id) => document.getElementById(id);
+    const $input = byId('input');
+    const $output = byId('output');
+    const encodeBtn = byId('btn-encode');
+    const decodeBtn = byId('btn-decode');
+    const clearBtn = byId('btn-clear');
+
+    function toBase64(str) {
+      try {
+        return btoa(unescape(encodeURIComponent(str)));
+      } catch (e) {
+        console.error('Encoding failed', e);
+        return '';
+      }
+    }
+
+    function fromBase64(b64) {
+      try {
+        return decodeURIComponent(escape(atob(b64)));
+      } catch (e) {
+        console.error('Decoding failed', e);
+        return '';
+      }
+    }
+
+    let mode = 'encode';
+    function setMode(m) {
+      mode = m;
+      encodeBtn.classList.toggle('active', m === 'encode');
+      decodeBtn.classList.toggle('active', m === 'decode');
+      updateOutput();
+    }
+
+    function updateOutput() {
+      const val = $input.value.trim();
+      if (!val) { $output.value = ''; return; }
+      $output.value = mode === 'encode' ? toBase64(val) : fromBase64(val);
+    }
+
+    encodeBtn.addEventListener('click', () => setMode('encode'));
+    decodeBtn.addEventListener('click', () => setMode('decode'));
+    clearBtn.addEventListener('click', () => { $input.value = ''; $output.value = ''; });
+    $input.addEventListener('input', updateOutput);
+  </script>
 </body>
 </html>
