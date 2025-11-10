@@ -19,17 +19,65 @@
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
 
-    body { color: var(--text); font-family: 'Inter', system-ui, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; background: radial-gradient(circle at center, #1a0000 0%, #06060a 80%); overflow-x: hidden; position: relative; min-height: 100vh; padding-bottom: 60px; }
+    body {
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background: radial-gradient(circle at center, #1a0000 0%, #06060a 80%);
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
 
-    .animated-grid { position: fixed; inset: 0; background-image: linear-gradient(rgba(255,0,0,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,0,0.07) 1px, transparent 1px); background-size: 50px 50px; z-index: 0; animation: moveGrid 30s linear infinite; }
-    @keyframes moveGrid { 0% { background-position: 0 0, 0 0; } 100% { background-position: 100px 100px, 100px 100px; } }
+    .animated-grid {
+      position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(255,0,0,0.07) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,0,0,0.07) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 0;
+      animation: moveGrid 30s linear infinite;
+    }
+    @keyframes moveGrid {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 100px 100px, 100px 100px; }
+    }
 
-    .app { position: relative; z-index: 1; margin-top: 60px; width: min(900px, 95%); display: flex; flex-direction: row; align-items: flex-start; justify-content: center; gap: 20px; }
+    .app {
+      position: relative; z-index: 1;
+      margin-top: 60px;
+      width: min(900px, 95%);
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 20px;
+    }
 
-    .explain { flex: 1; color: var(--muted); font-size: 15px; line-height: 1.6; max-width: 250px; position: relative; }
-    .explain::after { content: ''; position: absolute; top: 50%; right: -30px; width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); transform: translateY(-50%) rotate(3deg); animation: pulseLine 3s ease-in-out infinite; box-shadow: 0 0 12px rgba(255,0,0,0.8), 0 0 24px rgba(255,0,0,0.4); }
-    .explain.right::after { left: -30px; right: auto; transform: translateY(-50%) rotate(-3deg); background: linear-gradient(90deg, transparent, var(--accent), transparent); }
-    @keyframes pulseLine { 0%, 100% { opacity: 0.4; box-shadow: 0 0 10px rgba(255,0,0,0.6); } 50% { opacity: 1; box-shadow: 0 0 20px rgba(255,50,50,1); } }
+    .explain {
+      flex: 1; color: var(--muted); font-size: 15px; line-height: 1.6;
+      max-width: 250px; position: relative;
+    }
+    .explain::after {
+      content: ''; position: absolute; top: 50%; right: -30px;
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: translateY(-50%) rotate(3deg);
+      animation: pulseLine 3s ease-in-out infinite;
+      box-shadow: 0 0 12px rgba(255,0,0,0.8), 0 0 24px rgba(255,0,0,0.4);
+    }
+    .explain.right::after {
+      left: -30px; right: auto;
+      transform: translateY(-50%) rotate(-3deg);
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    @keyframes pulseLine {
+      0%, 100% { opacity: 0.4; box-shadow: 0 0 10px rgba(255,0,0,0.6); }
+      50% { opacity: 1; box-shadow: 0 0 20px rgba(255,50,50,1); }
+    }
 
     @media (max-width: 768px) {
       .explain { display: none; }
@@ -37,30 +85,79 @@
 
     .main-section { flex: 2; display: flex; flex-direction: column; align-items: center; }
 
-    .coin-bar { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; position: relative; margin-bottom: 15px; }
+    .coin-bar {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 6px; position: relative; margin-bottom: 15px;
+    }
     .coin-address-line { display: flex; align-items: center; gap: 8px; justify-content: center; }
-    .coin-address { background: var(--glass); backdrop-filter: blur(8px); padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border); font-size: 13px; color: var(--muted); }
-    .copy-symbol { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: rgba(255,255,255,0.1); border: 1px solid var(--border); cursor: pointer; color: var(--ok); font-size: 18px; font-weight: 700; transition: all 0.2s ease; position: relative; }
+    .coin-address {
+      background: var(--glass); backdrop-filter: blur(8px);
+      padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border);
+      font-size: 13px; color: var(--muted);
+    }
+    .copy-symbol {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      border-radius: 8px; background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border); cursor: pointer; color: var(--ok);
+      font-size: 18px; font-weight: 700; transition: all 0.2s ease; position: relative;
+    }
     .copy-symbol:hover { background: rgba(0,255,150,0.15); transform: translateY(-1px); }
     .copy-symbol:active { transform: scale(0.95); }
-    .copied-popup { position: absolute; top: -35px; background: rgba(0,255,150,0.15); color: var(--ok); padding: 4px 10px; border-radius: 8px; font-size: 12px; border: 1px solid var(--ok); opacity: 0; animation: popupFade 1.2s ease forwards; pointer-events: none; }
-    @keyframes popupFade { 0% { opacity: 0; transform: translateY(5px); } 20% { opacity: 1; transform: translateY(0); } 80% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-5px); } }
+    .copied-popup {
+      position: absolute; top: -35px; background: rgba(0,255,150,0.15);
+      color: var(--ok); padding: 4px 10px; border-radius: 8px;
+      font-size: 12px; border: 1px solid var(--ok); opacity: 0;
+      animation: popupFade 1.2s ease forwards; pointer-events: none;
+    }
+    @keyframes popupFade {
+      0% { opacity: 0; transform: translateY(5px); }
+      20%,80% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-5px); }
+    }
 
     .coin-buttons { display: flex; gap: 10px; justify-content: center; }
 
-    .btn { border: none; background: var(--glass); backdrop-filter: blur(10px); color: var(--text); padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px; transition: transform .1s ease, background .2s ease, box-shadow .3s; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; min-width: 100px; }
+    .btn {
+      border: none; background: var(--glass); backdrop-filter: blur(10px);
+      color: var(--text); padding: 8px 12px; border-radius: 10px;
+      cursor: pointer; font-weight: 600; font-size: 13px;
+      transition: transform .1s ease, background .2s ease, box-shadow .3s;
+      text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+      min-width: 100px;
+    }
     .btn:hover { background: rgba(255,0,0,0.15); transform: translateY(-1px); }
     .btn.active { box-shadow: 0 0 15px var(--accent); background: rgba(255,0,0,0.3); }
 
-    .glass-block { background: var(--glass); border: 1px solid var(--border); border-radius: 18px; padding: 20px; width: 100%; backdrop-filter: blur(12px); box-shadow: 0 0 25px rgba(255,0,0,0.15); display: flex; flex-direction: column; gap: 16px; max-width: 600px; position: relative; }
+    .glass-block {
+      background: var(--glass); border: 1px solid var(--border);
+      border-radius: 18px; padding: 20px; width: 100%;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 25px rgba(255,0,0,0.15);
+      display: flex; flex-direction: column; gap: 16px; max-width: 600px; position: relative;
+    }
 
     .row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; align-items: center; }
-    .swap-icon { order: -1; margin-right: 8px; font-size: 20px; color: var(--accent); cursor: pointer; transition: transform 0.3s ease, color 0.3s ease; display: inline-flex; align-items: center; }
+    .swap-icon {
+      order: -1; margin-right: 8px; font-size: 20px; color: var(--accent);
+      cursor: pointer; transition: transform 0.3s ease, color 0.3s ease; display: inline-flex; align-items: center;
+    }
     .swap-icon:hover { color: var(--ok); transform: rotate(180deg); }
 
-    textarea { width: 100%; min-height: 160px; background: rgba(0,0,0,0.25); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 14px; resize: vertical; outline: none; }
+    textarea {
+      width: 100%; min-height: 160px; background: rgba(0,0,0,0.25);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px 14px; color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px; resize: vertical; outline: none;
+    }
 
-    footer { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 13px; padding: 10px 0; z-index: 2; }
+    footer {
+      position: fixed; bottom: 0; left: 0; width: 100%;
+      background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border); text-align: center;
+      color: var(--muted); font-size: 13px; padding: 10px 0; z-index: 2;
+    }
     footer span { color: var(--accent); font-weight: 600; }
   </style>
 </head>
@@ -69,7 +166,7 @@
   <div class="app">
     <div class="explain">
       <h3 style="color:var(--ok);">What is Encoding?</h3>
-      <p>Encoding hides your readable text inside Base64 — a layer that keeps your message safe during transfer, storage, and the chaos of the chain. Privacy starts with code.</p>
+      <p>Encoding converts your readable text into Base64. This format is safe for transfer and storage in places that can break normal text.</p>
     </div>
 
     <div class="main-section">
@@ -103,7 +200,7 @@
 
     <div class="explain right">
       <h3 style="color:var(--accent);">What is Decoding?</h3>
-      <p>Decoding reverses Base64, turning hidden strings back into readable text. It’s how encrypted truth becomes visible again.</p>
+      <p>Decoding takes a Base64 string and turns it back into regular text. This is useful when you receive encoded data.</p>
     </div>
   </div>
 
@@ -113,48 +210,123 @@
 
   <script>
     const byId = (id) => document.getElementById(id);
+    const $copyAddress = byId('copyAddress');
+    const $coinAddress = byId('coinAddress');
+    const xBtn = byId('xBtn');
+    const buyBtn = byId('buyBtn');
+
+    async function robustCopy(text) {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      } catch {}
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        return true;
+      } catch { return false; }
+    }
+
+    function popupCopied(el) {
+      const popup = document.createElement('div');
+      popup.className = 'copied-popup';
+      popup.textContent = 'Copied!';
+      el.appendChild(popup);
+      setTimeout(() => popup.remove(), 1200);
+    }
+
+    $copyAddress.addEventListener('click', async () => {
+      const text = ($coinAddress.textContent || '').trim();
+      const ok = await robustCopy(text);
+      if (ok) popupCopied($copyAddress);
+    });
+
+    xBtn.addEventListener('click', () => window.open('https://x.com/encodedcoin', '_blank', 'noopener,noreferrer'));
+    buyBtn.addEventListener('click', () => window.open('https://pump.fun/', '_blank', 'noopener,noreferrer'));
+
     const $input = byId('input');
     const $output = byId('output');
     const encodeBtn = byId('btn-encode');
     const decodeBtn = byId('btn-decode');
-    const clearBtn = byId('btn-clear');
+    const clearBtn  = byId('btn-clear');
+    const copyOutBtn = byId('btn-copy');
+    const shareXBtn = byId('shareX');
+    const swapIcon = byId('swapIcon');
 
-    function toBase64(str) {
+    function toBase64(str){
       try {
         return btoa(unescape(encodeURIComponent(str)));
-      } catch (e) {
-        console.error('Encoding failed', e);
+      } catch {
         return '';
       }
     }
-
-    function fromBase64(b64) {
+    function fromBase64(b64){
       try {
         return decodeURIComponent(escape(atob(b64)));
-      } catch (e) {
-        console.error('Decoding failed', e);
+      } catch {
         return '';
       }
     }
 
     let mode = 'encode';
-    function setMode(m) {
-      mode = m;
-      encodeBtn.classList.toggle('active', m === 'encode');
-      decodeBtn.classList.toggle('active', m === 'decode');
+    function setMode(m){
+      mode=m;
+      encodeBtn.classList.toggle('active', m==='encode');
+      decodeBtn.classList.toggle('active', m==='decode');
       updateOutput();
     }
+    encodeBtn.addEventListener('click', ()=> setMode('encode'));
+    decodeBtn.addEventListener('click', ()=> setMode('decode'));
 
-    function updateOutput() {
-      const val = $input.value.trim();
-      if (!val) { $output.value = ''; return; }
-      $output.value = mode === 'encode' ? toBase64(val) : fromBase64(val);
+    function updateOutput(){
+      const val = $input.value;
+      if (!val){
+        $output.value = '';
+        if (shareXBtn) shareXBtn.style.display = 'none';
+        return;
+      }
+      if (mode === 'encode'){
+        $output.value = toBase64(val);
+        if (shareXBtn){
+          const text = `${$output.value}\\n\\n$ENCODED`;
+          shareXBtn.style.display = 'inline-flex';
+          shareXBtn.onclick = () => {
+            const url = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank', 'noopener,noreferrer');
+          };
+        }
+      } else {
+        $output.value = fromBase64(val);
+        if (shareXBtn) shareXBtn.style.display = 'none';
+      }
     }
 
-    encodeBtn.addEventListener('click', () => setMode('encode'));
-    decodeBtn.addEventListener('click', () => setMode('decode'));
-    clearBtn.addEventListener('click', () => { $input.value = ''; $output.value = ''; });
     $input.addEventListener('input', updateOutput);
+
+    clearBtn.addEventListener('click', () => {
+      $input.value='';
+      $output.value='';
+      if (shareXBtn) shareXBtn.style.display='none';
+    });
+
+    swapIcon.addEventListener('click', () => {
+      const temp = $input.value;
+      $input.value = $output.value;
+      $output.value = temp;
+      setMode(mode === 'encode' ? 'decode' : 'encode');
+      updateOutput();
+    });
+
+    copyOutBtn.addEventListener('click', async () => {
+      const ok = await robustCopy($output.value || '');
+      if (ok) popupCopied(copyOutBtn);
+    });
   </script>
 </body>
 </html>
